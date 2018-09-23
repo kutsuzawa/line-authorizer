@@ -17,8 +17,8 @@ func TestDefaultConfig(t *testing.T) {
 		if c.Secret != "admin" {
 			t.Errorf("Secret should be %s, but actual is %s", "admin", c.Secret)
 		}
-		if c.HttpClient != http.DefaultClient {
-			t.Errorf("HttpClient should be default, but actual is %v", c.HttpClient)
+		if c.HTTPClient != http.DefaultClient {
+			t.Errorf("HTTPClient should be default, but actual is %v", c.HTTPClient)
 		}
 	})
 }

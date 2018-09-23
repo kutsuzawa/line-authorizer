@@ -16,16 +16,17 @@ type Client struct {
 type Config struct {
 	ID         string
 	Secret     string
-	HttpClient *http.Client
-	ApiAddress string
+	HTTPClient *http.Client
+	APIAddress string
 }
 
+// DefaultConfig configuration for client
 func DefaultConfig() *Config {
 	return &Config{
 		ID:         "admin",
 		Secret:     "admin",
-		HttpClient: http.DefaultClient,
-		ApiAddress: "https://api.line.me",
+		HTTPClient: http.DefaultClient,
+		APIAddress: "https://api.line.me",
 	}
 }
 
@@ -38,11 +39,11 @@ func NewClient(config Config) *Client {
 	if len(config.Secret) == 0 {
 		config.Secret = defConfig.Secret
 	}
-	if config.HttpClient == nil {
-		config.HttpClient = defConfig.HttpClient
+	if config.HTTPClient == nil {
+		config.HTTPClient = defConfig.HTTPClient
 	}
-	if len(config.ApiAddress) == 0 {
-		config.ApiAddress = defConfig.ApiAddress
+	if len(config.APIAddress) == 0 {
+		config.APIAddress = defConfig.APIAddress
 	}
 	return &Client{
 		config,
@@ -51,7 +52,7 @@ func NewClient(config Config) *Client {
 
 // NewRequest is used to create a new Request
 func (c *Client) NewRequest(method, path string, body io.Reader) (*http.Request, error) {
-	u := fmt.Sprintf("%s/%s", c.ApiAddress, path)
+	u := fmt.Sprintf("%s/%s", c.APIAddress, path)
 	req, err := http.NewRequest(method, u, body)
 	if err != nil {
 		return nil, err
@@ -59,9 +60,10 @@ func (c *Client) NewRequest(method, path string, body io.Reader) (*http.Request,
 	return req, nil
 }
 
+// Do sends an HTTP request
 func (c *Client) Do(req *http.Request) (*http.Response, error) {
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	resp, err := c.HttpClient.Do(req)
+	resp, err := c.HTTPClient.Do(req)
 	if err != nil {
 		return nil, err
 	}

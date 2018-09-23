@@ -35,7 +35,7 @@ func TestChannelToken_Publish(t *testing.T) {
 
 		t.Run(c.name, func(t *testing.T) {
 			config := authorizer.Config{
-				ApiAddress: ts.URL,
+				APIAddress: ts.URL,
 			}
 			client := authorizer.NewClient(config)
 			token, err := client.PublishChannelToken()
