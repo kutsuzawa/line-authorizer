@@ -15,8 +15,8 @@ import (
 
 func main() {
 	config := authorizer.Config{
-		ID:     "yourID",
-		Secret: "yourPassword",
+		ID:     "channelID",
+		Secret: "channelSecret",
 	}
 	client := authorizer.NewClient(config)
 	token, err := client.PublishChannelToken()
