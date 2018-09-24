@@ -39,6 +39,7 @@ func (c *Client) PublishChannelToken() (*string, error) {
 		if err := c.decodeBody(authErr, resp.Body); err != nil {
 			return nil, errors.Wrap(err, "failed to decode")
 		}
+		return nil, errors.Errorf("return %d from line api: %s", http.StatusBadRequest, authErr.ErrDescription)
 	}
 	var auth channelAuth
 	if err := c.decodeBody(&auth, resp.Body); err != nil {
